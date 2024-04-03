@@ -10,7 +10,7 @@ namespace BulldozeIt
     public class ModInfo : IUserMod
     {
         public string Name => "自动化推土机!";
-        public string Description => "自动化推土机!增高自动推平废弃建筑物功能。";
+        public string Description => "自动推平废弃建筑物功能!~by github:TacKana";
 
         private static readonly string[] IntervalLabels =
         {

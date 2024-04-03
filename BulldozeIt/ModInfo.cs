@@ -1,22 +1,25 @@
 ﻿using ICities;
 using System;
 using System.Reflection;
-
+/*
+中文翻译支持
+2024.04.03 by`TacKana
+*/
 namespace BulldozeIt
 {
     public class ModInfo : IUserMod
     {
-        public string Name => "Bulldoze It!";
-        public string Description => "Allows to automate the bulldozing of buildings.";
+        public string Name => "自动化推土机!";
+        public string Description => "自动化推土机!增高自动推平废弃建筑物功能。";
 
         private static readonly string[] IntervalLabels =
         {
-            "End of Day",
-            "End of Month",
-            "End of Year",
-            "Every 5 seconds",
-            "Every 10 seconds",
-            "Every 30 seconds"
+            "一天一次",
+            "一月一次",
+            "一年一次",
+            "5秒一次",
+            "10秒一次",
+            "30秒/半分钟一次"
         };
 
         private static readonly int[] IntervalValues =
@@ -43,14 +46,14 @@ namespace BulldozeIt
             int result;
 
             selectedIndex = GetSelectedOptionIndex(IntervalValues, ModConfig.Instance.Interval);
-            group.AddDropdown("Interval", IntervalLabels, selectedIndex, sel =>
+            group.AddDropdown("自动化推土机工作时间", IntervalLabels, selectedIndex, sel =>
             {
                 ModConfig.Instance.Interval = IntervalValues[sel];
                 ModConfig.Instance.Save();
             });
 
             selectedValue = ModConfig.Instance.MaxBuildingsPerInterval;
-            group.AddTextfield("Max Buildings (per interval)", selectedValue.ToString(), sel =>
+            group.AddTextfield("每次最大铲除多少废弃建筑物？", selectedValue.ToString(), sel =>
             {
                 int.TryParse(sel, out result);
                 ModConfig.Instance.MaxBuildingsPerInterval = result;
@@ -58,28 +61,28 @@ namespace BulldozeIt
             });
 
             selected = ModConfig.Instance.PreserveHistoricalBuildings;
-            group.AddCheckbox("Preserve Historical Buildings", selected, sel =>
+            group.AddCheckbox("是否排除历史建筑物？", selected, sel =>
             {
                 ModConfig.Instance.PreserveHistoricalBuildings = sel;
                 ModConfig.Instance.Save();
             });
 
             selected = ModConfig.Instance.IgnoreSearchingForSurvivors;
-            group.AddCheckbox("Ignore Searching For Survivors", selected, sel =>
+            group.AddCheckbox("忽略搜索幸存者（机翻的不太理解意思）", selected, sel =>
             {
                 ModConfig.Instance.IgnoreSearchingForSurvivors = sel;
                 ModConfig.Instance.Save();
             });
 
             selected = ModConfig.Instance.ShowCounters;
-            group.AddCheckbox("Show Counters in Bulldozer Bar", selected, sel =>
+            group.AddCheckbox("是否显示已经铲除建筑数量？", selected, sel =>
             {
                 ModConfig.Instance.ShowCounters = sel;
                 ModConfig.Instance.Save();
             });
 
             selected = ModConfig.Instance.ShowStatistics;
-            group.AddCheckbox("Show Statistics in Info Panel", selected, sel =>
+            group.AddCheckbox("是否在日志面板中显示统计信息？", selected, sel =>
             {
                 ModConfig.Instance.ShowStatistics = sel;
                 ModConfig.Instance.Save();
